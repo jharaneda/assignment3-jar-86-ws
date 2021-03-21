@@ -44,22 +44,33 @@ exports.removeItemJar86 = function (req, res) {
 };
 
 exports.checkout = function (req, res) {
-    console.log("Received checkout cart request");
-  
-    for (let index = 0; index < cart.length; index++) {
-      const cartQuantity = cart[index].quantity;
-      const cartSKU = cart[index].sku;
-  
-      const indexToUpdate = inventory.map((index) => index.sku).indexOf(cartSKU);
-      if (indexToUpdate != -1) {
-        let intTest = parseInt(inventory[indexToUpdate].quantity) - parseInt(cartQuantity);
-        inventory[indexToUpdate].quantity = intTest;
-      }
+  console.log("Received checkout cart request");
+
+  for (let index = 0; index < cart.length; index++) {
+    const cartQuantity = cart[index].quantity;
+    const cartSKU = cart[index].sku;
+
+    const indexToUpdate = inventory.map((index) => index.sku).indexOf(cartSKU);
+    if (indexToUpdate != -1) {
+      let intTest =
+        parseInt(inventory[indexToUpdate].quantity) - parseInt(cartQuantity);
+      inventory[indexToUpdate].quantity = intTest;
     }
-    cart = [];
-    res.header("Content-Type: application/json");
-    res.send(JSON.stringify(inventory));
+  }
+  cart = [];
+  res.header("Content-Type: application/json");
+  res.send(JSON.stringify(inventory));
+};
+
+exports.getTotals = function (req, res) {
+  let totals = cart.reduce((acc, sum) => acc + sum.price, 0);
+  let result = {
+    total: totals,
   };
+  sumTotal = result;
+  res.header("Content-Type: application/json");
+  res.send(JSON.stringify(result));
+};
 
 let sumTotal = {};
 
