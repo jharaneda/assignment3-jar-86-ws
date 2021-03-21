@@ -12,28 +12,36 @@ exports.getInventory = function (req, res) {
 };
 
 exports.addItemJar86 = function (req, res) {
-    console.log("Received add item request");
-    let newItem = {
-      sku: req.body.sku,
-      name: req.body.name,
-      quantity: 1,
-      price: req.body.price,
-    };
-  
-    let itemSku = req.body.sku;
-  
-    const alreadyExists = cart.map((index) => index.sku).indexOf(itemSku);
-  
-    if (alreadyExists > -1) {
-      cart[alreadyExists].quantity += parseInt(1);
-      cart[alreadyExists].price += req.body.price;
-    } else {
-      cart.push(newItem);
-    }
-  
-    res.header("Content-Type: application/json");
-    res.send(JSON.stringify(cart));
+  console.log("Received add item request");
+  let newItem = {
+    sku: req.body.sku,
+    name: req.body.name,
+    quantity: 1,
+    price: req.body.price,
   };
+
+  let itemSku = req.body.sku;
+
+  const alreadyExists = cart.map((index) => index.sku).indexOf(itemSku);
+
+  if (alreadyExists > -1) {
+    cart[alreadyExists].quantity += parseInt(1);
+    cart[alreadyExists].price += req.body.price;
+  } else {
+    cart.push(newItem);
+  }
+
+  res.header("Content-Type: application/json");
+  res.send(JSON.stringify(cart));
+};
+
+exports.removeItemJar86 = function (req, res) {
+  console.log("Received delete item request");
+  res.header("Content-Type: application/json");
+
+  cart = cart.filter((item) => item.sku != req.body.sku);
+  res.send(JSON.stringify(cart));
+};
 
 let sumTotal = {};
 
