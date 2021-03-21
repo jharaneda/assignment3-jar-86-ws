@@ -12,7 +12,7 @@ const corsOption = {
 app.use(cors());
 app.use(bodyParser.json());
 
-const shoppingRouter = require('./routes/shoppingRouteJar86')
+const shoppingRouter = require('./routes/shoppingRouteJar86.js')
 
 app.use('/cartJar86', shoppingRouter)
 app.use('/', shoppingRouter)
