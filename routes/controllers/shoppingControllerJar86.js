@@ -1,10 +1,19 @@
-let sumTotal = {
+exports.getCartJar86 = function (req, res) {
+  console.log("Received get request to get shopping cart");
+  res.header("Content-Type: application/json");
+  res.send(JSON.stringify(cart));
+};
 
-}
+exports.getInventory = function (req, res) {
+  console.log("Received get inventory request");
 
-let cart = [
+  res.header("Content-Type: application/json");
+  res.send(JSON.stringify(inventory));
+};
 
-];
+let sumTotal = {};
+
+let cart = [];
 
 let inventory = [
   {
